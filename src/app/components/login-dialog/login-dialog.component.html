@@ -1,0 +1,83 @@
+<mat-card @fadeIn>
+  <mat-card-header>
+    <mat-card-title>{{ isLogin ? 'כניסה' : 'הרשמה' }}</mat-card-title>
+    <button mat-icon-button (click)="closeDialog()" aria-label="סגור חלון">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-header>
+
+  <mat-card-content>
+    @if (showSuccessMessage) {
+      <div class="success-message" @fadeIn>
+        <mat-icon class="success-icon">check_circle</mat-icon>
+        {{ successMessage }}
+      </div>
+    } @else {
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+        @if (!isLogin) {
+          <mat-form-field appearance="outline">
+            <mat-label>שם</mat-label>
+            <input matInput formControlName="name" type="text" />
+            <mat-icon matSuffix>person</mat-icon>
+            @if (authForm.get('name')?.hasError('required') && authForm.get('name')?.touched) {
+              <mat-error>שם הוא שדה חובה</mat-error>
+            }
+          </mat-form-field>
+        }
+
+        <mat-form-field appearance="outline">
+          <mat-label>אימייל</mat-label>
+          <input matInput formControlName="email" type="email" />
+          <mat-icon matSuffix>email</mat-icon>
+          @if (authForm.get('email')?.hasError('required') && authForm.get('email')?.touched) {
+            <mat-error>אימייל הוא שדה חובה</mat-error>
+          } @else if (authForm.get('email')?.hasError('email') && authForm.get('email')?.touched) {
+            <mat-error>יש להזין כתובת אימייל תקינה</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>סיסמה</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button" aria-label="הצג סיסמה">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (authForm.get('password')?.hasError('required') && authForm.get('password')?.touched) {
+            <mat-error>סיסמה היא שדה חובה</mat-error>
+          } @else if (authForm.get('password')?.hasError('minlength') && authForm.get('password')?.touched) {
+            <mat-error>הסיסמה צריכה להכיל לפחות 6 תווים</mat-error>
+          }
+        </mat-form-field>
+
+        @if (error$ | async) {
+          <div class="error-message" @fadeIn>
+            <mat-icon class="error-icon">error</mat-icon>
+            {{ error$ | async }}
+          </div>
+        }
+      </form>
+    }
+  </mat-card-content>
+
+  <mat-card-actions>
+    @if (!showSuccessMessage) {
+      <div class="actions-container">
+        <button mat-button (click)="toggleMode()" class="switch-mode-btn">
+          {{ isLogin ? 'הרשמה חדשה' : 'כבר יש לי חשבון' }}
+        </button>
+        
+        <div class="submit-container">
+          @if (loading$ | async) {
+            <mat-progress-spinner class="login-spinner" mode="indeterminate" diameter="24"></mat-progress-spinner>
+          } @else {
+            <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="authForm.invalid" class="submit-btn">
+              {{ isLogin ? 'כניסה' : 'הרשמה' }}
+            </button>
+          }
+        </div>
+      </div>
+    } @else {
+      <button mat-button (click)="closeDialog()">סגור</button>
+    }
+  </mat-card-actions>
+</mat-card>

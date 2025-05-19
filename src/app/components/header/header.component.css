@@ -1,0 +1,11 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+.header-title {
+    margin-inline-end: auto;
+}
+.my-icon-header{
+    /* margin: 5px; */
+    padding: 10px;
+}

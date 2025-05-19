@@ -1,0 +1,32 @@
+
+  .mat-dialog-content {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .lesson-group {
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+  }
+
+  .lesson-group button {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }

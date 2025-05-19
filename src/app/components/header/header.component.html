@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span style="margin-inline-end: auto;">קורסים אונליין</span>
+    <button mat-button routerLink="/">
+      <mat-icon class="my-icon-header">home</mat-icon>
+      בית
+    </button>
+    <button mat-button routerLink="/courses">
+      <mat-icon class="my-icon-header">library_books</mat-icon>
+      קורסים
+    </button>
+    @if (isLoggedOut$ | async) {
+      <button mat-button (click)="openLoginPopup()">
+        <mat-icon>person</mat-icon>
+        התחברות/הרשמה
+      </button>
+    } @else {
+      <button mat-button (click)="logout()">
+        <mat-icon>person</mat-icon>
+        {{ loggedInUserName }} - התנתקות
+      </button>
+    }
+    <button mat-button>
+      <mat-icon class="my-icon-header">info</mat-icon>
+      אודות
+    </button>
+    <button mat-button>
+      <mat-icon class="my-icon-header">work</mat-icon>
+      דרושים
+    </button>
+    <button mat-button>
+      <mat-icon class="my-icon-header">school</mat-icon>
+      התעודה שלי
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>

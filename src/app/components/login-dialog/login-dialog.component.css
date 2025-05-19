@@ -1,0 +1,116 @@
+mat-card {
+  direction: rtl;
+  max-width: 420px;
+  margin: auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  background-color: #fff;
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 24px;
+}
+
+mat-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+mat-card-content {
+  padding: 0;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+  text-align: right;
+  direction: rtl;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  background-color: #ffebee;
+  color: #d32f2f;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 0.9rem;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.error-icon, .success-icon {
+  margin-left: 8px;
+}
+
+.success-message {
+  display: flex;
+  align-items: center;
+  background-color: #e8f5e9;
+  padding: 16px;
+  border-radius: 8px;
+  color: #2e7d32;
+  text-align: right;
+  font-weight: 500;
+  margin: 16px 0;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.submit-container {
+  display: flex;
+  align-items: center;
+}
+
+.login-spinner {
+  margin-right: 8px;
+}
+
+.submit-btn {
+  min-width: 100px;
+}
+
+mat-card-actions {
+  padding: 16px 0 0 0;
+  margin: 0;
+}
+
+.switch-mode-btn {
+  color: #3f51b5;
+}
+
+/* Snackbar customization */
+.success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

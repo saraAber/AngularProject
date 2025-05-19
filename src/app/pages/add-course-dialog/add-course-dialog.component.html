@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>הוסף קורס חדש</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>כותרת</mat-label>
+    <input matInput placeholder="הכנס כותרת" [(ngModel)]="newCourse.title" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>תיאור</mat-label>
+    <textarea matInput placeholder="הכנס תיאור" [(ngModel)]="newCourse.description"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">ביטול</button>
+  <button mat-raised-button color="primary" [disabled]="!newCourse.title" (click)="onSaveClick()">שמור</button>
+</div>

@@ -1,0 +1,25 @@
+
+  .courses-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .actions {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .course-card {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+  }
