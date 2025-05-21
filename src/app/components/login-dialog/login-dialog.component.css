@@ -6,6 +6,27 @@ mat-card {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   padding: 24px;
   background-color: #fff;
+  text-align: right;
+}
+
+mat-card-content {
+  direction: rtl;
+  text-align: right;
+}
+
+form {
+  direction: rtl;
+  text-align: right;
+}
+
+::ng-deep .mat-mdc-form-field {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+::ng-deep .mat-mdc-form-field .mat-mdc-form-field-infix {
+  direction: ltr !important;
+  text-align: left !important;
 }
 
 mat-card-header {
@@ -31,8 +52,27 @@ mat-card-content {
 mat-form-field {
   width: 100%;
   margin-bottom: 16px;
-  text-align: right;
+  direction: ltr;
+}
+
+::ng-deep .mat-mdc-form-field-wrapper {
   direction: rtl;
+  text-align: right;
+}
+
+::ng-deep .mat-mdc-form-field-flex {
+  direction: rtl;
+  text-align: right;
+}
+
+::ng-deep .mat-mdc-form-field-label-wrapper {
+  direction: rtl;
+  text-align: right;
+}
+
+::ng-deep .mat-mdc-form-field-flex .mat-mdc-form-field-infix {
+  direction: rtl;
+  text-align: right;
 }
 
 .error-message {
@@ -82,6 +122,132 @@ mat-form-field {
 
 .submit-btn {
   min-width: 100px;
+  height: 40px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.submit-btn:disabled {
+  background-color: #e0e0e0 !important;
+  color: rgba(0, 0, 0, 0.38) !important;
+  cursor: not-allowed;
+}
+
+.submit-btn:not(:disabled) {
+  background-color: #40E0D0 !important;
+  color: white !important;
+}
+
+.submit-btn:not(:disabled):hover {
+  background-color: #30D1C0 !important;
+  transform: translateY(-1px);
+}
+
+/* סגנונות שדות הפורמט */
+.mat-mdc-form-field-wrapper {
+  direction: rtl !important;
+  text-align: right !important;
+  margin-bottom: 16px !important;
+}
+
+.mat-mdc-form-field-flex {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.mat-mdc-form-field-label-wrapper {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.mat-mdc-form-field-flex .mat-mdc-form-field-infix {
+  direction: rtl !important;
+  text-align: right !important;
+  padding: 8px 0 !important;
+}
+.mat-mdc-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+  direction: rtl;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-side {
+  border-color: #e0e0e0 !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-gap {
+  background-color: #e0e0e0 !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-side.focused {
+  border-color: #40E0D0 !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-gap.focused {
+  background-color: #40E0D0 !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-side:active {
+  border-color: #40E0D0 !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-gap:active {
+  background-color: #40E0D0 !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-appearance-outline.mat-mdc-form-field-invalid .mat-mdc-form-field-outline-side {
+  border-color: #DC3545 !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-appearance-outline.mat-mdc-form-field-invalid .mat-mdc-form-field-outline-gap {
+  background-color: #DC3545 !important;
+}
+
+
+.mat-mdc-form-field.mat-mdc-form-field-appearance-outline.mat-mdc-form-field-invalid .mat-mdc-form-field-outline-gap.focused {
+  background-color: #DC3545 !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-appearance-outline.mat-mdc-form-field-invalid .mat-mdc-form-field-outline-side:active {
+  border-color: #DC3545 !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-appearance-outline.mat-mdc-form-field-invalid .mat-mdc-form-field-outline-gap:active {
+  background-color: #DC3545 !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-appearance-outline.mat-mdc-form-field-invalid .mat-mdc-error {
+  color: #DC3545 !important;
+}
+
+/* שדות לא תקינים - מחלקה */
+.invalid-field .mat-mdc-form-field-outline-side {
+  border-color: #DC3545 !important;
+}
+
+.invalid-field .mat-mdc-form-field-outline-gap {
+  background-color: #DC3545 !important;
+}
+
+.invalid-field .mat-mdc-form-field-outline-side.focused {
+  border-color: #DC3545 !important;
+}
+
+.invalid-field .mat-mdc-form-field-outline-gap.focused {
+  background-color: #DC3545 !important;
+}
+
+.invalid-field .mat-mdc-form-field-outline-side:active {
+  border-color: #DC3545 !important;
+}
+
+.invalid-field .mat-mdc-form-field-outline-gap:active {
+  background-color: #DC3545 !important;
+}
+
+.invalid-field .mat-mdc-error {
+  color: #DC3545 !important;
 }
 
 mat-card-actions {

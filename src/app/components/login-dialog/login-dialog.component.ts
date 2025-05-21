@@ -1,77 +1,54 @@
-import {
-  Component,
-  inject,
-  ChangeDetectorRef,
-  OnInit,
-  OnDestroy
-} from '@angular/core';
-import {
-  FormBuilder,
-  Validators,
-  ReactiveFormsModule
-} from '@angular/forms';
-import {
-  MatCardModule
-} from '@angular/material/card';
-import {
-  MatFormFieldModule
-} from '@angular/material/form-field';
-import {
-  MatInputModule
-} from '@angular/material/input';
-import {
-  MatButtonModule
-} from '@angular/material/button';
-import {
-  MatIconModule
-} from '@angular/material/icon';
-import {
-  MatDialogModule,
-  MatDialogRef
-} from '@angular/material/dialog';
-import {
-  MatProgressSpinnerModule
-} from '@angular/material/progress-spinner';
-import {
-  trigger,
-  transition,
-  style,
-  animate
-} from '@angular/animations';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import * as UserActions from '../../stores/user/user.actions';
+import { Subject } from 'rxjs';
+import { trigger, transition, style, animate } from '@angular/animations';
 import * as UserSelectors from '../../stores/user/user.selectors';
+import * as UserActions from '../../stores/user/user.actions';
+import { inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { takeUntil } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login-dialog',
+  templateUrl: './login-dialog.component.html',
+  styleUrls: ['./login-dialog.component.css'],
+  animations: [
+    trigger('fade', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('400ms ease-in', style({ opacity: 1 }))
+      ])
+    ])
+  ],
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatDialogModule,
     MatProgressSpinnerModule,
     AsyncPipe
-  ],
-  templateUrl: './login-dialog.component.html',
-  styleUrl: './login-dialog.component.css',
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('400ms ease-in', style({ opacity: 1 }))
-      ])
-    ])
   ]
 })
-export class LoginDialogComponent implements OnInit, OnDestroy {
+export class LoginDialogComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('nameField') nameField!: ElementRef;
+  @ViewChild('emailField') emailField!: ElementRef;
+  @ViewChild('passwordField') passwordField!: ElementRef;
+
   private fb = inject(FormBuilder);
   private store = inject(Store);
   private cdr = inject(ChangeDetectorRef);
@@ -83,18 +60,15 @@ export class LoginDialogComponent implements OnInit, OnDestroy {
   showSuccessMessage = false;
   successMessage = '';
   userName: string | null = null;
-  hidePassword = true; // Added this line to fix the template error
-
-  authForm = this.fb.group({
-    name: ['', this.isLogin ? [] : [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-  });
-
-  loading$ = this.store.select(UserSelectors.selectUserLoading);
-  error$ = this.store.select(UserSelectors.selectUserError);
+  hidePassword = true;
+  submitBtnDisabled = true;
+  authForm!: FormGroup;
+  error$!: Observable<string | null>;
+  loading$!: Observable<boolean>;
 
   ngOnInit(): void {
+    this.initForm();
+    
     // Listen for successful user login/registration
     this.store
       .select(UserSelectors.selectCurrentUser)
@@ -113,7 +87,6 @@ export class LoginDialogComponent implements OnInit, OnDestroy {
             panelClass: ['success-snackbar']
           });
           
-          // Allow the success message to display briefly before closing
           setTimeout(() => {
             this.dialogRef.close();
           }, 1500);
@@ -121,8 +94,10 @@ export class LoginDialogComponent implements OnInit, OnDestroy {
           this.cdr.detectChanges();
         }
       });
-  
+
     // Listen for errors
+    this.error$ = this.store.select(UserSelectors.selectUserError);
+    this.loading$ = this.store.select(UserSelectors.selectUserLoading);
     this.error$.pipe(takeUntil(this.destroy$)).subscribe((error) => {
       if (error) {
         this.snackBar.open(error, 'סגור', {
@@ -134,9 +109,62 @@ export class LoginDialogComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit(): void {
+  ngAfterViewInit(): void {
+    const formFields = document.querySelectorAll('.mat-mdc-form-field');
+    formFields.forEach(field => {
+      field.setAttribute('dir', 'rtl');
+      const input = field.querySelector('input');
+      if (input) {
+        input.setAttribute('dir', 'ltr');
+      }
+    });
+
+    const formFields2 = document.querySelectorAll('.mat-form-field');
+    formFields2.forEach(field => {
+      field.setAttribute('dir', 'rtl');
+      const input = field.querySelector('input');
+      if (input) {
+        input.setAttribute('dir', 'ltr');
+      }
+    });
+  }
+
+  private initForm(): void {
+    this.authForm = this.fb.group({
+      name: ['', this.isLogin ? null : [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+
+    this.authForm.valueChanges.subscribe(() => {
+      const emailControl = this.authForm.get('email');
+      const passwordControl = this.authForm.get('password');
+      
+      if (emailControl?.valid && passwordControl?.valid) {
+        this.submitBtnDisabled = false;
+      } else {
+        this.submitBtnDisabled = true;
+      }
+
+      setTimeout(() => {
+        const formFields = document.querySelectorAll('.mat-mdc-form-field');
+        formFields.forEach(field => {
+          const controlName = field.getAttribute('formcontrolname');
+          if (controlName) {
+            const control = this.authForm.get(controlName);
+            if (control && control.invalid && control.touched) {
+              field.classList.add('invalid-field');
+            } else {
+              field.classList.remove('invalid-field');
+            }
+          }
+        });
+      });
+    });
+  }
+
+  submit(): void {
     if (this.authForm.invalid) {
-      // Mark all fields as touched to trigger validation messages
       Object.keys(this.authForm.controls).forEach(key => {
         const control = this.authForm.get(key);
         control?.markAsTouched();
@@ -155,7 +183,7 @@ export class LoginDialogComponent implements OnInit, OnDestroy {
     if (this.isLogin) {
       this.store.dispatch(UserActions.loginUser({ email, password }));
     } else {
-      this.store.dispatch(UserActions.registerUser({ name, email, password, role: 'teacher' }));
+      this.store.dispatch(UserActions.registerUser({ name, email, password, role: 'student' }));
     }
   }
 

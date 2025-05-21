@@ -1,8 +1,9 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 import { Store } from '@ngrx/store';
@@ -11,17 +12,27 @@ import * as UserActions from '../../stores/user/user.actions';
 import { Observable, Subject, takeUntil, map } from 'rxjs';
 import { User } from '../../stores/user/user.state';
 import { AsyncPipe } from '@angular/common';
+import { FirstLetterPipe } from "../../pipes/first-letter.pipe";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterLink,
-    AsyncPipe
-  ],
+  imports: [
+    CommonModule,
+    RouterLink,
+    RouterLinkActive,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    AsyncPipe,
+    FirstLetterPipe
+],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent {
+  @Output() toggleSidenav = new EventEmitter<void>();
+
   private dialog = inject(MatDialog);
   private store = inject(Store);
   private destroy$ = new Subject<void>();
@@ -31,7 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     takeUntil(this.destroy$),
     map(user => !!user)
   );
-  isLoggedOut$: Observable<boolean> = this.isLoggedIn$.pipe( // Added this line
+  isLoggedOut$: Observable<boolean> = this.isLoggedIn$.pipe(
     map(loggedIn => !loggedIn)
   );
   loggedInUserName: string | null = null;
@@ -54,7 +65,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout(): void {
     this.store.dispatch(UserActions.logoutUser());
     localStorage.removeItem('authToken');
-    // this.router.navigate(['/']);
   }
 
   ngOnDestroy(): void {
