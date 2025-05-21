@@ -25,6 +25,12 @@ button[mat-icon-button] mat-icon {
 mat-toolbar {
   padding: 0 1rem;
   background-color: #40E0D0;
+    position: fixed; 
+    top: 0;          
+    left: 0;         
+    width: 100%;     
+    z-index: 1000;   
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
 }
 
 mat-toolbar-row {

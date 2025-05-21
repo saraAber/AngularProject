@@ -13,6 +13,9 @@
 
 .app-sidenav {
   height: 100%;
+  background-color: #4b4f4e;
+  width: 15%;
+  color: #ffff;
 }
 
 .app-content {
@@ -24,6 +27,7 @@
 .app-header {
   height: 10%;
   min-height: 60px;
+  /* position: fixed; */
 }
 
 .app-content {
@@ -34,6 +38,7 @@
 }
 
 .container {
+  margin-top: 60px;
   flex: 1;
   min-width: 100vh;
   background-color: var(--background-color);
@@ -49,7 +54,7 @@
   background-color: #40E0D0;
   box-shadow: var(--shadow);
   padding: 1rem;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 1000;
 }

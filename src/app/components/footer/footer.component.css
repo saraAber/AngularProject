@@ -36,6 +36,7 @@
 .footer mat-list-item {
   padding: 0.5rem 0;
   border-bottom: 1px solid rgba(0,0,0,0.1);
+
 }
 
 .footer mat-list-item:last-child {
@@ -46,8 +47,17 @@
   color: var(--text-color);
   text-decoration: none;
   transition: color 0.3s ease;
+  
 }
 
 .footer a:hover {
   color: var(--primary-color);
+}
+
+.footer mat-icon {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  margin-left: 7px;
+  padding: 0;
 }

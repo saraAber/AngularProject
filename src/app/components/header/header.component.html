@@ -1,6 +1,10 @@
 <mat-toolbar color="primary">
   <button mat-icon-button (click)="toggleSidenav.emit()">
+    @if(!sidenav){
     <mat-icon>menu</mat-icon>
+    } @else {
+    <mat-icon>close</mat-icon>
+    }
   </button>
   <span class="toolbar-title">קורסים אונליין</span>
   <span class="toolbar-spacer"></span>

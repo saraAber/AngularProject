@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{ isEditMode ? 'ערוך קורס' : 'הוסף קורס חדש' }}</h1>
+<h1 mat-dialog-title class="dialog-title">{{ isEditMode ? 'ערוך קורס' : 'הוסף קורס חדש' }}</h1>
 <div mat-dialog-content [formGroup]="form">
   <mat-form-field appearance="outline">
     <mat-label>כותרת</mat-label>
@@ -13,10 +13,13 @@
     <textarea matInput formControlName="description"></textarea>
   </mat-form-field>
 
-  <h2>שיעורים</h2>
+  <h2 class="lessons-title">שיעורים</h2>
   <div formArrayName="lessons">
     @for (lesson of lessonsFormArray.controls; track $index) {
       <div [formGroupName]="$index" class="lesson-group">
+        <button mat-icon-button color="warn" (click)="removeLesson($index)" class="remove-lesson-button">
+          <mat-icon>delete</mat-icon>
+        </button>
         <h3>שיעור {{ $index + 1 }}</h3>
         <mat-form-field appearance="outline">
           <mat-label>כותרת שיעור</mat-label>
@@ -30,21 +33,17 @@
           <mat-label>תוכן שיעור</mat-label>
           <textarea matInput formControlName="content"></textarea>
         </mat-form-field>
-
-        <button mat-icon-button color="warn" (click)="removeLesson($index)">
-          <mat-icon>delete</mat-icon>
-        </button>
       </div>
     }
   </div>
 
-  <button mat-button type="button" (click)="addLesson()">
+  <button mat-flat-button color="accent" type="button" (click)="addLesson()" class="add-lesson-button">
     <mat-icon>add</mat-icon> הוסף שיעור
   </button>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onCancelClick()">ביטול</button>
-  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="onSubmit()">
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onCancelClick()" class="cancel-button">ביטול</button>
+  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="onSubmit()" class="submit-button">
     {{ isEditMode ? 'שמור שינויים' : 'שמור קורס' }}
   </button>
 </div>

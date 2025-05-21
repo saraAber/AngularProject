@@ -1,28 +1,413 @@
+/* src/app/components/course-management/course-management.component.css */
 .course-management-container {
-    padding: 24px;
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f8f9fa; /* רקע בהיר ונעים */
+  min-height: calc(100vh - 64px);
+}
+
+/* שורה עליונה ירוקה (כמו בתמונה הראשונה) */
+.top-bar {
+  background-color: #00e676; /* ירוק בוהק */
+  height: 20px; /* גובה הפס הירוק */
+  width: 100vw; /* רוחב מלא של המסך */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+.header {
+  display: flex;
+  justify-content: flex-start; /* כפתור חזרה בצד שמאל */
+  margin-bottom: 24px;
+}
+
+.header button {
+  padding: 8px 20px;
+  font-size: 1em;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background-color: #e0e0e0; /* צבע רקע אפור בהיר עדין */
+  color: #424242; /* צבע טקסט אפור כהה */
+}
+
+.header button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  background-color: #d0d0d0; /* גוון כהה יותר בריחוף */
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2.5em;
+  color: #3f51b5; /* צבע כחול חזק לכותרת */
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -10px;
+  width: 80px;
+  height: 4px;
+  background-color: #4CAF50; /* קו תחתון בצבע ירוק */
+  border-radius: 2px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-start; /* כפתור הוסף קורס לשמאל כמו בתמונה */
+  margin-bottom: 25px;
+}
+
+.action-buttons button {
+  padding: 10px 25px;
+  font-size: 1.1em;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  background-color: #c8e6c9; /* צבע רקע ירוק בהיר מאוד (כמו בתמונה) */
+  color: #388e3c; /* צבע טקסט ירוק כהה יותר */
+}
+
+.action-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+  background-color: #a5d6a7; /* גוון כהה יותר בריחוף */
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  color: #757575;
+  font-size: 1.1em;
+}
+
+.loading mat-spinner {
+  margin-bottom: 15px;
+  color: #616161;
+}
+
+/* עיצוב הטבלה */
+.courses-table-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden; /* לוודא שפינות מעוגלות חלות על כל התוכן */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* צל עמוק יותר */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse; /* לוודא שאין רווחים בין התאים */
+}
+
+th.mat-header-cell {
+  background-color: #e0f2f7; /* כחול בהיר מאוד לכותרות עמודות */
+  color: #3f51b5; /* טקסט כחול כהה */
+  font-weight: 600;
+  font-size: 1.1em;
+  padding: 15px 20px;
+  text-align: right; /* יישור לימין ל-RTL */
+}
+
+th.mat-header-cell .header-icon {
+  vertical-align: middle;
+  margin-left: 8px; /* רווח בין אייקון לטקסט */
+  color: #4CAF50; /* צבע ירוק לאייקונים בכותרות */
+}
+
+td.mat-cell {
+  padding: 12px 20px;
+  border-bottom: 1px solid #eeeeee; /* קו הפרדה עדין בין שורות */
+  color: #424242;
+  font-size: 1em;
+}
+
+tr.mat-header-row {
+  height: auto; /* מאפשר גובה משתנה לכותרת */
+}
+
+/* צביעה לסירוגין לשורות הטבלה */
+tr.mat-row {
+  transition: background-color 0.2s ease;
+  height: auto; /* מאפשר גובה משתנה לשורות */
+}
+
+tr.mat-row:nth-child(even) {
+  background-color: #f7f7f7; /* גוון אפרפר עדין לשורות זוגיות */
+}
+
+tr.mat-row:nth-child(odd) {
+  background-color: #ffffff; /* גוון לבן לשורות אי-זוגיות */
+}
+
+tr.mat-row:hover {
+  background-color: #e3f2fd; /* רקע כחול בהיר בריחוף */
+  cursor: pointer; /* סמן עכבר של מצביע */
+}
+
+
+.course-title-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* רווח בין אייקון לכותרת */
+  font-weight: 500;
+  color: #212121;
+}
+
+.course-main-icon { /* שינוי קלאס */
+  font-size: 24px; /* גודל אייקון קורס */
+  color: #4CAF50; /* צבע ירוק לאייקוני קורסים */
+}
+
+/* אייקון כוכב קסם */
+.magic-star-icon {
+  font-size: 18px;
+  color: #ffb300; /* צבע כתום/זהב */
+  margin-right: 5px; /* רווח משמאל לכוכב */
+  animation: pulse 1.5s infinite ease-in-out; /* אנימציה עדינה */
+}
+
+/* אנימציית פעימה לכוכב */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* אייקון מעטפה בתיאור */
+.description-cell {
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative; /* נדרש למיקום האייקון */
+  padding-left: 30px; /* רווח לאייקון */
+}
+
+.description-mail-icon {
+  position: absolute;
+  right: 5px; /* מיקום יחסי לתיאור */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #78909c; /* צבע אפור כחלחל */
+}
+
+.description-cell:hover {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  background-color: #e0e0e0;
+  z-index: 10;
+  position: relative;
+  cursor: help;
+}
+
+td.mat-cell button {
+  margin-left: 8px;
+  font-size: 1.2em;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+}
+
+td.mat-cell button mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+}
+
+
+.no-courses-message {
+  text-align: center;
+  padding: 40px;
+  color: #757575;
+  font-size: 1.1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: #fefefe;
+  border-top: 1px solid #eee;
+  border-radius: 0 0 12px 12px;
+}
+
+.no-courses-message mat-icon {
+  font-size: 40px;
+  color: #9e9e9e;
+}
+
+button .mat-icon{
+  fill: red;
+}
+
+/* רספונסיביות */
+@media (max-width: 900px) {
+  .course-management-container {
+    padding: 20px;
   }
 
-  .header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 16px;
+  .page-title {
+    font-size: 2em;
   }
 
-  h1 {
+  .action-buttons {
+    justify-content: center; /* מרכז את כפתור ההוספה */
+  }
+
+  th.mat-header-cell, td.mat-cell {
+    padding: 10px 15px;
+    font-size: 0.9em;
+  }
+
+  .course-title-cell {
+    gap: 5px;
+  }
+
+  .course-main-icon {
+    font-size: 20px;
+  }
+
+  .magic-star-icon {
+      font-size: 16px;
+  }
+
+  .description-mail-icon {
+      font-size: 16px;
+  }
+
+  .description-cell {
+    max-width: 200px; /* צמצם רוחב תיאור במסכים קטנים */
+  }
+
+  td.mat-cell button {
+    margin-left: 5px;
+    font-size: 1.1em;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .course-management-container {
+    padding: 15px;
+  }
+
+  .page-title {
+    font-size: 1.8em;
     margin-bottom: 20px;
   }
 
-  button {
-    margin-right: 10px;
-  }
-
-  table {
-    width: 100%;
-    margin-top: 20px;
-  }
-
-  .loading {
-    display: flex;
+  .header {
     justify-content: center;
-    padding: 50px;
   }
+
+  th.mat-header-cell, td.mat-cell {
+    padding: 8px 10px;
+    font-size: 0.85em;
+  }
+
+  /* כרטיס נפרד לכל קורס במקום טבלה */
+  .courses-table-container {
+    display: block; /* נסתר את הטבלה */
+    box-shadow: none;
+    background-color: transparent;
+  }
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
+
+  thead tr {
+    display: none; /* הסתר כותרת הטבלה */
+  }
+
+  tr.mat-row {
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white; /* רקע לבן לשורות בודדות */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  tr.mat-row:nth-child(even), tr.mat-row:nth-child(odd) {
+    background-color: white; /* ביטול צבעים לסירוגין בתצוגת כרטיסים */
+  }
+
+  tr.mat-row:hover {
+    background-color: #f0f0f0; /* רקע עדין בריחוף גם בתצוגת כרטיסים */
+  }
+
+  td.mat-cell {
+    border-bottom: none; /* הסר קווי הפרדה פנימיים */
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+  }
+
+  td.mat-cell:before {
+    content: attr(data-label); /* הצג את שם העמודה כתווית */
+    font-weight: 600;
+    color: #555;
+    margin-left: 10px; /* רווח בין התווית לערך */
+  }
+
+  td.mat-cell:last-child {
+    border-bottom: none;
+  }
+
+  /* תיוג עמודות עבור תצוגה ניידת */
+  td.mat-cell:nth-of-type(1):before { content: "כותרת הקורס:"; }
+  td.mat-cell:nth-of-type(2):before { content: "תיאור:"; }
+  td.mat-cell:nth-of-type(3):before { content: "פעולות:"; }
+
+  .description-cell {
+    white-space: normal; /* תיאור מלא בנייד */
+    overflow: visible;
+    text-overflow: unset;
+    max-width: none;
+    display: block; /* הופך לבלוק כדי שיהיה מתחת לתווית */
+    text-align: right;
+    padding-left: 0; /* בטל ריפוד מיוחד לאייקון */
+  }
+  .description-mail-icon {
+      position: static; /* בטל מיקום אבסולוטי בנייד */
+      transform: none;
+      margin-right: 5px; /* רווח בין אייקון לטקסט תיאור */
+  }
+
+  .description-cell:hover {
+    background-color: transparent; /* הסר רקע בריחוף בנייד */
+    cursor: default;
+  }
+
+  .course-title-cell {
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+
+  td.mat-cell button {
+    margin-left: 0; /* הסר רווחים בין כפתורים בנייד */
+    margin-right: 5px;
+  }
+}

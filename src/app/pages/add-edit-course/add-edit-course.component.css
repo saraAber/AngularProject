@@ -1,32 +1,329 @@
+/* src/app/components/add-edit-course/add-edit-course.component.css */
 
-  .mat-dialog-content {
-    max-height: 80vh;
-    overflow-y: auto;
+.mat-dialog-container {
+  border-radius: 12px;
+  background-color: #f8f9fa; /* רקע בהיר לדיאלוג */
+  padding: 24px;
+}
+
+.dialog-title {
+  text-align: center;
+  font-size: 2.2em;
+  color: #3f51b5; /* כחול כהה לכותרת */
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 15px; /* רווח לקו התחתון */
+}
+
+.dialog-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 70px;
+  height: 4px;
+  background-color: #4CAF50; /* קו תחתון ירוק */
+  border-radius: 2px;
+}
+
+.mat-dialog-content {
+  max-height: 70vh; /* קצת פחות מ-80vh כדי להשאיר מקום לפעולות */
+  overflow-y: auto;
+  padding: 0 10px; /* ריווח פנימי קל */
+}
+
+/* עיצוב שדות הטופס של Material */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 18px; /* רווח בין שדות */
+  direction: rtl; /* יישור לימין לכל השדות */
+  text-align: right;
+}
+
+/* כותרות שדות - תווית */
+.mat-mdc-form-field-label {
+    direction: rtl;
+    text-align: right;
+    color: #616161 !important; /* צבע טקסט אפור לתוויות */
+}
+
+/* קווי המתאר של שדות הקלט */
+.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline {
+    color: #b0bec5 !important; /* צבע אפור בהיר לקווי המתאר */
+}
+
+/* קווי המתאר של שדות הקלט במיקוד */
+.mat-mdc-form-field-appearance-outline.mat-focused .mat-mdc-form-field-outline-thick {
+    color: #40E0D0 !important; /* טורקיז במיקוד */
+}
+
+/* צבע הטקסט בשדה הקלט */
+input.mat-mdc-input, textarea.mat-mdc-input {
+    color: #424242; /* צבע טקסט כהה */
+    text-align: right; /* יישור הטקסט בתוך השדה */
+}
+
+/* הודעות שגיאה */
+mat-error {
+  color: #DC3545 !important; /* אדום בוהק לשגיאות */
+  font-size: 0.85em;
+  text-align: right;
+}
+
+.lessons-title {
+  font-size: 1.8em;
+  color: #4CAF50; /* ירוק לכותרת השיעורים */
+  margin-top: 25px;
+  margin-bottom: 20px;
+  text-align: right;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.lesson-group {
+  background-color: #e8f5e9; /* רקע ירוק בהיר לכל קבוצת שיעור */
+  border: 1px solid #c8e6c9; /* גבול ירוק עדין */
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* צל קל */
+  transition: all 0.3s ease-in-out;
+}
+
+.lesson-group:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-group h3 {
+  font-size: 1.3em;
+  color: #388e3c; /* ירוק כהה לכותרת שיעור */
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #a5d6a7; /* קו מקווקו מתחת לכותרת השיעור */
+  text-align: right;
+}
+
+/* כפתור מחיקת שיעור (פח) בתוך קבוצת השיעור */
+.remove-lesson-button {
+  position: absolute;
+  top: 10px; /* מיקום יחסי לראש קבוצת השיעור */
+  left: 10px; /* מיקום יחסי לשמאל קבוצת השיעור */
+  color: #f44336 !important; /* צבע אדום */
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.remove-lesson-button:hover {
+  background-color: rgba(244, 67, 54, 0.1); /* רקע אדום שקוף בריחוף */
+  transform: scale(1.1);
+}
+
+.remove-lesson-button mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+
+/* כפתור "הוסף שיעור" */
+.add-lesson-button {
+  width: auto;
+  padding: 10px 25px;
+  font-size: 1.1em;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  background-color: #a7ffeb !important; /* טורקיז בהיר */
+  color: #00897b !important; /* ירוק-טורקיז כהה */
+  margin-top: 20px;
+}
+
+.add-lesson-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+  background-color: #84ffff !important; /* טורקיז בוהק יותר בריחוף */
+}
+
+.add-lesson-button mat-icon {
+    margin-right: 8px;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+}
+
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  margin-top: 25px;
+}
+
+/* כפתור "ביטול" */
+.cancel-button {
+  background-color: #e0e0e0; /* אפור בהיר */
+  color: #424242; /* טקסט אפור כהה */
+  padding: 10px 25px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.cancel-button:hover {
+  background-color: #d0d0d0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* כפתור "שמור" */
+.submit-button {
+  background-color: #4CAF50 !important; /* ירוק בוהק */
+  color: white !important;
+  padding: 10px 25px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #388e3c !important; /* ירוק כהה יותר בריחוף */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+.submit-button:disabled {
+  background-color: #a5d6a7 !important; /* ירוק בהיר מאוד למצב לא פעיל */
+  color: #e0f2f7 !important; /* טקסט בהיר */
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* רספונסיביות */
+@media (max-width: 600px) {
+  .mat-dialog-container {
+    padding: 15px;
   }
 
-  .actions {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
+  .dialog-title {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+
+  .mat-dialog-content {
+    padding: 0 5px;
+  }
+
+  .lessons-title {
+    font-size: 1.5em;
   }
 
   .lesson-group {
-    border: 1px solid #ccc;
-    padding: 16px;
-    margin-bottom: 16px;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
+    padding: 15px;
+  }
+
+  .lesson-group h3 {
+    font-size: 1.2em;
+  }
+
+  .remove-lesson-button {
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+  }
+
+  .remove-lesson-button mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+  }
+
+  .add-lesson-button {
+    font-size: 1em;
+    padding: 8px 20px;
+  }
+
+  .dialog-actions {
+    flex-direction: column-reverse; /* כפתור שמור למטה, ביטול מעליו */
+    align-items: stretch; /* מתיחה לרוחב מלא */
     gap: 10px;
-    position: relative;
   }
 
-  .lesson-group button {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-  }
-
-  mat-form-field {
+  .dialog-actions button {
     width: 100%;
+    margin: 0;
   }
+}
+/* src/app/components/add-edit-course/add-edit-course.component.css */
+
+/* וודא שהכלל הזה חל על קונטיינר הדיאלוג עצמו */
+/* אם הדיאלוג עצמו (mat-dialog-container) לא מקבל גובה מקסימלי,
+   אז גם התוכן הפנימי שלו לא ייגלל.
+   ננסה להוסיף כלל גלובלי (או דרך ::ng-deep כאן)
+   על mat-dialog-container כדי להגביל את גובהו.
+*/
+::ng-deep .mat-mdc-dialog-container {
+  max-height: 90vh !important; /* אחוז מגובה המסך */
+  display: flex !important; /* הפוך ל-flex container */
+  flex-direction: column !important; /* פריטים בטור */
+  border-radius: 12px; /* כדי לשמור על הפינות המעוגלות */
+  background-color: #f8f9fa;
+  padding: 24px; /* אם זה דורס, אפשר להעביר ל-mat-dialog-content */
+  height: auto;
+}
+
+
+.dialog-title {
+  text-align: center;
+  font-size: 2.2em;
+  color: #3f51b5;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 15px;
+  /* כדי שהכותרת לא תתפוס מקום ורטיקלי מוגזם ותפריע לגלילה */
+  flex-shrink: 0; /* מונע מהכותרת להתכווץ */
+}
+
+.dialog-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 70px;
+  height: 4px;
+  background-color: #4CAF50;
+  border-radius: 2px;
+}
+
+.mat-dialog-content {
+  /* הכלל החשוב ביותר לגלילה: */
+  flex-grow: 1 !important; /* תופס את כל השטח הפנוי האפשרי */
+  overflow-y: auto !important; /* מאפשר גלילה אנכית כשיש יותר מדי תוכן */
+  padding: 0 10px;
+  margin-bottom: 20px; /* רווח לפני האקשנים */
+}
+
+/* ... (שאר הקוד הקיים ב-CSS) ... */
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  margin-top: 0; /* אל תדחוף את זה למטה עם מרג'ין נוסף */
+  flex-shrink: 0; /* מונע מהכפתורים להתכווץ */
+}

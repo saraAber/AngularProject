@@ -1,4 +1,4 @@
-
+/* 
   .courses-container {
     display: flex;
     flex-direction: column;
@@ -22,4 +22,212 @@
     display: flex;
     justify-content: center;
     padding: 50px;
+  } */
+
+/* src/app/components/courses/courses.component.css */
+.courses-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.actions {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  justify-content: center;
+}
+
+.course-card {
+  display: flex;
+  flex-direction: column;
+ 
+  justify-content: space-between;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  min-height: 340px; /* הגדל גובה מינימלי עבור תוכן נוסף וריפודים */
+  opacity: 0;
+  transform: translateY(20px);
+  padding: 0; /* נסיר את הריפוד הכללי מהכרטיס - נגדיר אותו לרכיבים פנימיים */
+}
+
+.placeholder-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 340px; /* ודא שאורך placeholder זהה לכרטיסים רגילים */
+  background-color: #f0f0f0;
+  
+}
+
+.course-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* תיקון בעיית האייקון - ודא שהוא נראה במלואו */
+.course-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px; /* תן גובה קבוע לקונטיינר האייקון */
+  overflow: hidden; /* ודא שאם האייקון גדול מדי, הוא לא ייגלוש */
+  padding: 10px 0; /* ריפוד קטן מלמעלה ומלמטה */
+}
+
+.course-main-icon {
+  font-size: 100px; /* ודא שגודל האייקון גדול מספיק */
+ height: 100px; 
+  width: 100px;
+  line-height: 1; /* מונע רווחים מיותרים מעל ומתחת לאייקון */
+  vertical-align: middle; /* עוזר למרכז אנכית */
+  /* צבע האייקון נקבע ב-HTML באמצעות [style.color] */
+}
+
+.card-header-new {
+  justify-content: center;
+  text-align: center; /* מרכז את הכותרת והכתוביות */
+  padding: 0 16px 8px; /* ריפוד תחתון קטן יותר */
+}
+
+.course-title {
+  font-size: 1.7em;
+  font-weight: 700;
+  margin: 0; /* הסר מרווח תחתון - הסאבטייטל מיד אחריו */
+  /* צבע הטקסט נקבע ב-HTML */
+}
+
+.course-teacher {
+  font-size: 1em;
+  font-weight: 500;
+  margin-top: 4px; /* מרווח קטן מעל שם המורה */
+  /* צבע הטקסט נקבע ב-HTML */
+}
+
+/* הגדרות לתוכן התיאור והכפתורים */
+.course-content-new {
+  flex-grow: 1;
+  padding: 0 16px 16px; /* ריפוד תחתון רגיל */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.course-description {
+  margin: 0; /* הסר מרווח תחתון - הכפתורים יהיו ב-actions-footer */
+  flex-grow: 1;
+  line-height: 1.5;
+  font-size: 0.95em;
+  text-align: center; /* מרכז את התיאור */
+}
+
+/* עיצוב חדש עבור קונטיינר הכפתורים בתחתית הכרטיס */
+.course-actions-footer {
+  display: flex;
+  justify-content: space-around; /* פזר את הכפתורים באופן אחיד */
+  align-items: center;
+  padding: 0 16px 16px; /* ריפוד בתחתית הכרטיס */
+  margin-top: auto; /* דחוף את הפוטר לתחתית הכרטיס */
+  gap: 10px; /* רווח בין הכפתורים */
+}
+
+.enroll-button {
+  flex: 1; /* תן לכפתור להתפרס על שטח זמין */
+  font-size: 1em;
+  padding: 8px 15px; /* ריפוד קטן יותר לכפתור */
+  border-radius: 8px;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* צל עדין לכפתור */
+}
+
+.enroll-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.details-button {
+  flex: 1; /* תן לכפתור להתפרס על שטח זמין */
+  font-size: 1em;
+  padding: 8px 15px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  /* צבע הכפתור יהיה שקוף (transparent) אך הטקסט יתאים לצבע הכרטיס */
+  background-color: transparent;
+  box-shadow: none; /* ללא צל עבור כפתור טקסט */
+}
+
+.details-button:hover {
+  transform: translateY(-2px);
+  background-color: rgba(0, 0, 0, 0.05); /* רקע קל בריחוף */
+}
+
+.no-courses {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px;
+  font-size: 1.2em;
+  color: #888;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.no-courses mat-icon {
+  font-size: 48px;
+  color: #bbb;
+  height: 48px;
+  width: 48px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.snackbar-success {
+  background-color: #4CAF50 !important;
+  color: white !important;
+}
+
+@media (max-width: 768px) {
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+  .courses-container {
+    padding: 16px;
+  }
+  .course-main-icon {
+    font-size: 80px;
+  }
+  .course-actions-footer {
+    flex-direction: column; /* בעמודה במסכים קטנים */
+  }
+  .enroll-button, .details-button {
+    width: 100%; /* רוחב מלא במסכים קטנים */
+  }
+}

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { RouterLink } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-footer',
@@ -11,6 +12,7 @@ import { RouterLink } from '@angular/router';
     CommonModule,
     MatCardModule,
     MatListModule,
+    MatIconModule,
     RouterLink
   ],
   templateUrl: './footer.component.html',

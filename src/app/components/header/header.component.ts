@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, Output, EventEmitter, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -13,6 +13,7 @@ import { Observable, Subject, takeUntil, map } from 'rxjs';
 import { User } from '../../stores/user/user.state';
 import { AsyncPipe } from '@angular/common';
 import { FirstLetterPipe } from "../../pipes/first-letter.pipe";
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-header',
@@ -33,6 +34,7 @@ import { FirstLetterPipe } from "../../pipes/first-letter.pipe";
 export class HeaderComponent {
   @Output() toggleSidenav = new EventEmitter<void>();
 
+  @ViewChild('sidenav') sidenav!: MatSidenav;
   private dialog = inject(MatDialog);
   private store = inject(Store);
   private destroy$ = new Subject<void>();

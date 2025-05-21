@@ -18,6 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { takeUntil } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
+import { SocialAuthService, GoogleLoginProvider, SocialUser } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login-dialog',
@@ -41,7 +42,7 @@ import { Observable } from 'rxjs';
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    AsyncPipe
+    AsyncPipe,
   ]
 })
 export class LoginDialogComponent implements OnInit, OnDestroy, AfterViewInit {

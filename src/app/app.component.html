@@ -1,6 +1,9 @@
 <mat-sidenav-container class="app-container" dir="rtl">
   <mat-sidenav #sidenav mode="side" opened="false" class="app-sidenav">
     <mat-nav-list>
+      <a mat-list-item (click)="sidenav.toggle()">
+      <mat-icon>chevron_right</mat-icon>
+      </a>      
       <a mat-list-item [routerLink]="['/']">
         <mat-icon>home</mat-icon>
         בית

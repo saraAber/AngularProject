@@ -85,6 +85,16 @@ export class UserEffects {
     )
   );
   
+logOutUser$=createEffect(()=>
+this.actions$.pipe(
+    ofType(UserActions.logoutUser),
+    tap(()=>{
+        localStorage.clear();
+    })
+    
+),
+{ dispatch: false }
+)
 
   // loadUser$ = createEffect(() =>
   //   this.actions$.pipe(

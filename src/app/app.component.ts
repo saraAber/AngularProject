@@ -25,9 +25,11 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title = 'online-courses-client';
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
   toggleSidenav() {
     this.sidenav.toggle();
+    return true;
   }
 }

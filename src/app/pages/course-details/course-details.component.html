@@ -1,37 +1,129 @@
-<div class="course-details-container">
+<!-- 
+   <div class="course-details-container">
     <div class="header">
-      <button mat-raised-button color="accent" [routerLink]="['/courses']">
+      <button mat-flat-button color="primary" [routerLink]="['/courses']">
         <mat-icon>arrow_back</mat-icon> חזרה לקורסים
       </button>
     </div>
   
     @if (isLoadingCourse()) {
-      <div class="loading">
-        <mat-spinner></mat-spinner>
-      </div>
+    <div class="loading">
+      <mat-spinner></mat-spinner>
+      <p>טוען פרטי קורס...</p>
+    </div>
     } @else if (course()) {
-      <mat-card>
-        <mat-card-title>{{ course()?.title }}</mat-card-title>
-        <mat-card-subtitle>פרטי קורס</mat-card-subtitle>
-        <mat-card-content>
+    <mat-card class="course-detail-card mat-elevation-z8">
+      <div class="card-hero-section">
+        <mat-icon class="course-detail-icon">menu_book</mat-icon>
+        <mat-card-title class="course-detail-title">{{ course()?.title }}</mat-card-title>
+        <mat-card-subtitle class="course-detail-subtitle">פרטי קורס מפורטים</mat-card-subtitle>
+      </div>
+  
+      <mat-card-content class="course-detail-content">
+        <section class="description-section">
+          <h3>תיאור הקורס:</h3>
           <p>{{ course()?.description }}</p>
+        </section>
+  
+        <mat-divider></mat-divider>
+  
+        <section class="lessons-section">
           <h3>שיעורים:</h3>
           @if (isLoadingLessons()) {
-            <mat-spinner></mat-spinner>
+          <div class="loading-lessons">
+            <mat-spinner diameter="30"></mat-spinner>
+            <p>טוען שיעורים...</p>
+          </div>
           } @else {
-            <mat-list>
-              @for (lesson of lessons(); track lesson.id) {
-                <mat-list-item>{{ lesson.title }}</mat-list-item>
-              }
-              @if (lessons().length === 0) {
-                <mat-list-item>אין שיעורים בקורס זה.</mat-list-item>
-              }
-            </mat-list>
+          <mat-list class="lesson-list">
+            @for (lesson of lessons(); track lesson.id) {
+            <mat-list-item class="lesson-item">
+              <mat-icon matListItemIcon>play_circle_outline</mat-icon>
+              <div matListItemTitle>{{ lesson.title }}</div>
+              <div matListItemLine>{{ lesson.content }}</div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            }
+            @if (lessons().length === 0) {
+            <mat-list-item class="no-lessons">
+              <mat-icon matListItemIcon>info</mat-icon>
+              אין שיעורים בקורס זה כרגע.
+            </mat-list-item>
+            }
+          </mat-list>
           }
-        </mat-card-content>
-      </mat-card>
+        </section>
+      </mat-card-content>
+    </mat-card>
     } @else {
-      <p>הקורס לא נמצא.</p>
+    <div class="not-found">
+      <mat-icon>sentiment_dissatisfied</mat-icon>
+      <p>הקורס לא נמצא או שגיאה בטעינה. אנא נסה שוב מאוחר יותר.</p>
+    </div>
+    }
+  </div> -->
+
+  <div class="course-details-container">
+    <div class="header">
+      <button mat-flat-button color="primary" [routerLink]="['/courses']">
+        <mat-icon>arrow_back</mat-icon> חזרה לקורסים
+      </button>
+    </div>
+  
+    @if (isLoadingCourse()) {
+    <div class="loading">
+      <mat-spinner></mat-spinner>
+      <p>טוען פרטי קורס...</p>
+    </div>
+    } @else if (course()) {
+    <mat-card class="course-detail-card mat-elevation-z8">
+      <div class="card-hero-section">
+        <mat-icon class="course-detail-icon">menu_book</mat-icon>
+        <mat-card-title class="course-detail-title">{{ course()?.title }}</mat-card-title>
+        <mat-card-subtitle class="course-detail-subtitle">פרטי קורס מפורטים</mat-card-subtitle>
+        <p class="teacher-name-hero">מורה: <strong>{{ teacherName() }}</strong></p>
+      </div>
+  
+      <mat-card-content class="course-detail-content">
+        <section class="description-section">
+          <h3>תיאור הקורס:</h3>
+          <p>{{ course()?.description }}</p>
+        </section>
+  
+        <mat-divider></mat-divider>
+  
+        <section class="lessons-section">
+          <h3>שיעורים:</h3>
+          @if (isLoadingLessons()) {
+          <div class="loading-lessons">
+            <mat-spinner diameter="30"></mat-spinner>
+            <p>טוען שיעורים...</p>
+          </div>
+          } @else {
+          <mat-list class="lesson-list">
+            @for (lesson of lessons(); track lesson.id) {
+            <mat-list-item class="lesson-item">
+              <mat-icon matListItemIcon>play_circle_outline</mat-icon>
+              <div matListItemTitle>{{ lesson.title }}</div>
+              <div matListItemLine>{{ lesson.content }}</div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            }
+            @if (lessons().length === 0) {
+            <mat-list-item class="no-lessons">
+              <mat-icon matListItemIcon>info</mat-icon>
+              אין שיעורים בקורס זה כרגע.
+            </mat-list-item>
+            }
+          </mat-list>
+          }
+        </section>
+      </mat-card-content>
+    </mat-card>
+    } @else {
+    <div class="not-found">
+      <mat-icon>sentiment_dissatisfied</mat-icon>
+      <p>הקורס לא נמצא או שגיאה בטעינה. אנא נסה שוב מאוחר יותר.</p>
+    </div>
     }
   </div>
-  
