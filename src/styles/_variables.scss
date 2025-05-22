@@ -1,0 +1,43 @@
+/* src/styles/_variables.scss */
+
+// Colors
+$primary-color: #3f51b5;         // Material Design Indigo 500 - used for primary actions, headings
+$accent-color: #ff4081;          // Material Design Pink A200 - used for accents, hover states
+$warn-color: #f44336;            // Material Design Red 500 - used for error/warning states
+
+$header-background-color: #40E0D0; // Specific color for header
+$footer-background-color: #333; // Dark background for footer
+
+$sidenav-bg-color: #4b4f4e;       // Sidenav background color
+$sidenav-text-color: #ffff;      // Sidenav text color
+
+$light-background-color: #f8f9fa; // Used for containers, light cards
+$background-color: #eeeeee;     // General app background (from styles.scss)
+
+$dark-text-color: #212121;       // General dark text
+$medium-text-color: #555;        // Medium dark text
+$light-text-color: #757575;      // Light grey text
+$on-primary-color: #ffffff;      // Text color on primary background
+$on-footer-background-color: #ffffff; // Text color on footer background
+
+// Spacing
+$spacing-xxs: 4px;
+$spacing-xs: 8px;
+$spacing-sm: 16px;
+$spacing-md: 24px;
+$spacing-lg: 32px;
+$spacing-xl: 48px;
+
+// Shadows (from Material Design)
+$shadow-z1: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-z2: 0 4px 8px rgba(0, 0, 0, 0.1);
+$shadow-z4: 0 4px 12px rgba(0, 0, 0, 0.08); // Used for course-details-container
+$shadow-z8: 0 8px 20px rgba(0, 0, 0, 0.15); // Used for login-dialog mat-card
+
+// Other common values
+$border-radius-sm: 8px;
+$border-radius-md: 12px;
+$border-radius-lg: 16px;
+
+$header-height: 60px;
+$footer-height: 60px; // min-height from app.component.scss

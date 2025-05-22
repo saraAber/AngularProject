@@ -1,110 +1,4 @@
-// import { Component, inject, signal, computed, OnInit } from '@angular/core';
-// import { MatCardModule } from '@angular/material/card';
-// import { MatButtonModule } from '@angular/material/button';
-// import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-// import { CourseService } from '../../services/courses.service';
-// import { Course } from '../../models/course.model';
-// import { Store, select } from '@ngrx/store';
-// import { selectCurrentUser } from '../../stores/user/user.selectors';
-// import { enrollUserInCourse, unenrollUserFromCourse } from '../../stores/user/user.actions';
-// import { toSignal } from '@angular/core/rxjs-interop';
-// import { MatIconModule } from '@angular/material/icon';
-// import { MatSnackBar } from '@angular/material/snack-bar';
-// import { Router, RouterLink } from '@angular/router';
-
-// @Component({
-//   selector: 'app-courses',
-//   standalone: true,
-//   imports: [
-//     MatCardModule,
-//     MatButtonModule,
-//     MatProgressSpinnerModule,
-//     MatIconModule,
-//     RouterLink,
-//   ],
-//   templateUrl: './courses.component.html',
-//   styleUrl: './courses.component.css'
-// })
-// export class CoursesComponent implements OnInit {
-//   private courseService = inject(CourseService);
-//   private store = inject(Store);
-//   private snackBar = inject(MatSnackBar);
-//   private router = inject(Router);
-
-//   user = toSignal(this.store.pipe(select(selectCurrentUser)), { initialValue: null });
-//   allCourses = signal<Course[]>([]);
-//   userCourses = signal<Set<number>>(new Set());
-//   isLoading = signal<boolean>(true);
-
-//   isTeacher = computed(() => this.user()?.role === 'teacher');
-
-//   ngOnInit(): void {
-//     this.loadAllCourses();
-//     this.loadUserCourses();
-//   }
-
-//   loadAllCourses() {
-//     this.isLoading.set(true);
-//     this.courseService.getAllCourses().subscribe({
-//       next: (data) => this.allCourses.set(data),
-//       error: (err) => {
-//         console.error('שגיאה בטעינת קורסים:', err);
-//         this.snackBar.open('שגיאה בטעינת הקורסים', 'סגור', { duration: 3000 });
-//       },
-//       complete: () => this.isLoading.set(false)
-//     });
-//   }
-
-//   loadUserCourses() {
-//     const userId = this.user()?.id;
-//     if (!userId) return;
-
-//     this.courseService.getCoursesByStudent(userId).subscribe({
-//       next: (courses) => {
-//         const ids = new Set(courses.map(c => c.id));
-//         this.userCourses.set(ids);
-//       },
-//       error: (err) => {
-//         console.error('שגיאה בשליפת קורסי המשתמש:', err);
-//         this.snackBar.open('שגיאה בשליפת קורסי המשתמש', 'סגור', { duration: 3000 });
-//       }
-//     });
-//   }
-
-//   isEnrolled(courseId: number): boolean {
-//     return this.userCourses().has(courseId);
-//   }
-
-//   toggleEnrollment(course: Course) {
-//     const userId = this.user()?.id;
-//     if (!userId) return;
-
-//     const enrolled = this.isEnrolled(course.id);
-//     const action = enrolled
-//       ? unenrollUserFromCourse({ userId, courseId: course.id })
-//       : enrollUserInCourse({ userId, courseId: course.id });
-
-//     this.store.dispatch(action);
-
-//     const updated = new Set(this.userCourses());
-//     if (enrolled) {
-//       updated.delete(course.id);
-//     } else {
-//       updated.add(course.id);
-//     }
-//     this.userCourses.set(updated);
-//   }
-
-//   navigateToCourseDetails(course: Course) {
-//     this.router.navigate(['/courses', course.id]);
-//   }
-
-//   navigateToCourseManagement() {
-//     this.router.navigate(['/course-management']);
-//   }
-// }
-
-// src/app/components/courses/courses.component.ts (או הנתיב המדויק אצלך)
+// src/app/components/courses/courses.component.ts
 import { Component, inject, signal, computed, OnInit, OnDestroy, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -155,10 +49,21 @@ export class CoursesComponent implements OnInit, OnDestroy {
   userCourses = signal<Set<number>>(new Set());
   isLoading = signal<boolean>(true);
   teacherNames = signal<Map<number, string>>(new Map());
+  // סיגנל חדש לשליטה על הסינון
+  showEnrolledOnly = signal<boolean>(false);
+
+  // סיגנל מחושב חדש לסינון קורסים
+  filteredCourses = computed(() => {
+    if (this.showEnrolledOnly()) {
+      const enrolledIds = this.userCourses();
+      return this.allCourses().filter(course => enrolledIds.has(course.id));
+    }
+    return this.allCourses();
+  });
 
   // צבעי רקע חזקים ובולטים יותר
   @Input() cardBackgroundColorStart: string = '#40E0D0'; // טורקיז בהיר
-  @Input() cardBackgroundColorEnd: string = '#10f41c';   // ירוק בהיר יותר
+  @Input() cardBackgroundColorEnd: string = '#10f41c';    // ירוק בהיר יותר
 
   isTeacher = computed(() => this.user()?.role === 'teacher');
 
@@ -333,5 +238,14 @@ export class CoursesComponent implements OnInit, OnDestroy {
     // חישוב בהירות (Luminance) באמצעות פורמולה נפוצה
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
     return luminance > 0.5 ? '#000000' : '#FFFFFF'; // אם בהיר - שחור, אם כהה - לבן
+  }
+
+  // פונקציה חדשה להחלפת מצב הסינון
+  toggleShowEnrolledOnly() {
+    if (!this.user()) {
+      this.snackBar.open('יש להתחבר כדי להציג את הקורסים שלך', 'סגור', { duration: 3000 });
+      return;
+    }
+    this.showEnrolledOnly.update(currentValue => !currentValue);
   }
 }

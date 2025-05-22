@@ -1,0 +1,18 @@
+<div class="not-found-container">
+    <div class="not-found-content">
+      <div class="error-code">404</div>
+      <h1 class="main-message">אופס! הדף הזה נראה קצת אבוד...</h1>
+      <p class="sub-message">האתר שלנו עדיין בפיתוח, ואנחנו בונים משהו מדהים במיוחד בשבילך!</p>
+      <p class="sub-message">תחכו בסבלנות, יהיו כאן דברים טובים מאוד בקרוב. מבטיחים!</p>
+  
+      <div class="fun-icons-grid">
+        @for (icon of funIcons; track icon) {
+          <mat-icon class="fun-icon">{{ icon }}</mat-icon>
+        }
+      </div>
+  
+      <button mat-raised-button color="primary" routerLink="/home">
+        <mat-icon>home</mat-icon> חזרה לדף הבית
+      </button>
+    </div>
+  </div>

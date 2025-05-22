@@ -66,7 +66,7 @@ export class HeaderComponent {
 
   logout(): void {
     this.store.dispatch(UserActions.logoutUser());
-    localStorage.removeItem('authToken');
+    localStorage.clear();
   }
 
   ngOnDestroy(): void {

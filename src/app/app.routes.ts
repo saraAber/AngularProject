@@ -1,17 +1,18 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { CoursesComponent } from './pages/courses/courses.component';
-import { CourseDetailsComponent } from './pages/course-details/course-details.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { CourseManagementComponent } from './pages/course-management/course-management.component';
-import { AboutComponent } from './pages/about/about.component';
+import { HomeComponent } from './components/home/home.component';
+import { CoursesComponent } from './components/courses/courses.component';
+import { CourseDetailsComponent } from './components/course-details/course-details.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { CourseManagementComponent } from './components/course-management/course-management.component';
+import { AboutComponent } from './components/about/about.component';
 
-export const routes: Routes = [{ path: '', component: HomeComponent, pathMatch: 'full' }, // דף הבית
-    { path: 'courses', component: CoursesComponent }, // רשימת קורסים
-    { path: 'courses/:id', component: CourseDetailsComponent }, // פרטי קורס ספציפי
-    { path: 'course-management', component: CourseManagementComponent}, // ניהול קורסים (למורים)
-    { path: 'about', component: AboutComponent}, // ניהול קורסים (למורים)
-    { path: '**', component: NotFoundComponent } // כל כתובת לא תקינה מפנה לדף הבית
+export const routes: Routes = [{ path: '', component: HomeComponent, pathMatch: 'full' }, 
+    { path: 'home', component: HomeComponent }, 
+    { path: 'courses', component: CoursesComponent }, 
+    { path: 'courses/:id', component: CourseDetailsComponent }, 
+    { path: 'course-management', component: CourseManagementComponent}, 
+    { path: 'about', component: NotFoundComponent},
+    { path: '**', component: NotFoundComponent } 
      ];
 
 
