@@ -18,14 +18,11 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.registerUser),
       mergeMap((action) => {
-        console.log('Register User Action:', action);
         return this.userService.registerUser(action.name, action.email, action.password, action.role).pipe(
           tap((response) => {
             localStorage.setItem('token', response.token);
-            console.log('Saved token:', response.token);
           }),
           map((response) => {
-            console.log('Register User Success Response:', response);
             const user: User = {
               id: response.userId,
               name: action.name,
@@ -58,14 +55,11 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.loginUser),
       switchMap((action) => {
-        console.log('Login User Action:', action);
         return this.userService.loginUser(action.email, action.password).pipe(
           tap((response) => {
             localStorage.setItem('token', response.token);
-            console.log('Saved token:', response.token);
           }),
           map((response) => {
-            console.log('Login User Success Response:', response);
             return UserActions.loadUser({ userId: response.userId });
           }),
           catchError((error) => {
@@ -96,38 +90,14 @@ this.actions$.pipe(
 { dispatch: false }
 )
 
-  // loadUser$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(UserActions.loadUser),
-  //     switchMap((action) => {
-  //       console.log('Load User Action:', action);
-  //       return this.userService.getUser(action.userId).pipe(
-  //         map((user) => {
-  //           console.log('Load User Success Response:', user);
-  //           return UserActions.loadUserSuccess({ user });
-  //         }),
-  //         catchError((error) => {
-  //           console.error('Load User Failure Error:', error);
-  //           let errorMessage = 'טעינת פרטי המשתמש נכשלה.';
-  //           if (error?.status === 404) {
-  //             errorMessage = 'המשתמש לא נמצא.';
-  //           } else if (error?.status === 500) {
-  //             errorMessage = 'שגיאה בשרת. אנא נסה שוב מאוחר יותר.';
-  //           }
-  //           return of(UserActions.loadUserFailure({ error: errorMessage }));
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
-
+  
   loadUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.loadUser),
       switchMap((action) => {
         console.log('Load User Action:', action);
         return this.userService.getUser(action.userId).pipe(
-          mergeMap((user) => [ // השתמש ב-mergeMap כדי לשגר מספר פעולות
+          mergeMap((user) => [ 
             UserActions.loadUserSuccess({ user }),
             UserActions.loadUserCourses({ userId: user.id })
           ]),

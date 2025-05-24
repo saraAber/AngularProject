@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../stores/user/user.state';
-
+import { environment } from '../../environments/environment';
 interface AuthResponse {
   token: string;
   userId: number;
@@ -22,9 +22,9 @@ interface Course { // Define the Course interface
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'http://localhost:3000/api/users'; // Adjust the base URL
-  private authUrl = 'http://localhost:3000/api/auth';
-  private coursesUrl = 'http://localhost:3000/api/courses';
+  private baseUrl = environment.apiUrl + '/api/users'; // Adjust the base URL
+  private authUrl = environment.apiUrl + '/api/auth';
+  private coursesUrl = environment.apiUrl + '/api/courses';
 
   constructor(private http: HttpClient) {}
 
@@ -43,7 +43,6 @@ export class UserService {
     });
   
     return this.http.get<User>(`${this.baseUrl}/${userId}`, { headers }).pipe(
-      tap(user => console.log('User Loaded:', user)),
       catchError(error => {
         console.error('getUser error:', error);
         throw error;

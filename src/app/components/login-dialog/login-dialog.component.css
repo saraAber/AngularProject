@@ -1,32 +1,10 @@
 mat-card {
-  direction: rtl;
   max-width: 420px;
   margin: auto;
   border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--card-shadow); 
   padding: 24px;
-  background-color: #fff;
-  text-align: right;
-}
-
-mat-card-content {
-  direction: rtl;
-  text-align: right;
-}
-
-form {
-  direction: rtl;
-  text-align: right;
-}
-
-::ng-deep .mat-mdc-form-field {
-  direction: rtl !important;
-  text-align: right !important;
-}
-
-::ng-deep .mat-mdc-form-field .mat-mdc-form-field-infix {
-  direction: ltr !important;
-  text-align: left !important;
+  background-color: var(--primary-color); 
 }
 
 mat-card-header {
@@ -34,14 +12,14 @@ mat-card-header {
   justify-content: space-between;
   align-items: center;
   padding: 0 0 16px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0; 
   margin-bottom: 24px;
 }
 
 mat-card-title {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #333;
+  color: #333; 
   margin: 0;
 }
 
@@ -78,8 +56,8 @@ mat-form-field {
 .error-message {
   display: flex;
   align-items: center;
-  background-color: #ffebee;
-  color: #d32f2f;
+  background-color: #ffebee; 
+  color: var(--error-color); 
   padding: 12px;
   border-radius: 8px;
   margin: 16px 0;
@@ -94,7 +72,7 @@ mat-form-field {
 .success-message {
   display: flex;
   align-items: center;
-  background-color: #e8f5e9;
+  background-color: #e8f5e9; 
   padding: 16px;
   border-radius: 8px;
   color: #2e7d32;
@@ -129,22 +107,23 @@ mat-form-field {
 }
 
 .submit-btn:disabled {
-  background-color: #e0e0e0 !important;
-  color: rgba(0, 0, 0, 0.38) !important;
+  background-color: #e0e0e0 !important; 
+  color: rgba(0, 0, 0, 0.38) !important; 
   cursor: not-allowed;
 }
 
 .submit-btn:not(:disabled) {
-  background-color: #40E0D0 !important;
-  color: white !important;
+  background-color: var(--secondary-color) !important; 
+  color: var(--primary-color) !important; 
 }
 
 .submit-btn:not(:disabled):hover {
+
   background-color: #30D1C0 !important;
   transform: translateY(-1px);
 }
 
-/* סגנונות שדות הפורמט */
+
 .mat-mdc-form-field-wrapper {
   direction: rtl !important;
   text-align: right !important;
@@ -172,82 +151,81 @@ mat-form-field {
   direction: rtl;
 }
 
+
 .mat-mdc-form-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-side {
-  border-color: #e0e0e0 !important;
+  border-color: #e0e0e0 !important; 
 }
 
 .mat-mdc-form-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-gap {
-  background-color: #e0e0e0 !important;
+  background-color: #e0e0e0 !important; 
 }
 
 .mat-mdc-form-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-side.focused {
-  border-color: #40E0D0 !important;
+  border-color: var(--secondary-color) !important; 
 }
 
 .mat-mdc-form-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-gap.focused {
-  background-color: #40E0D0 !important;
+  background-color: var(--secondary-color) !important; 
 }
 
 .mat-mdc-form-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-side:active {
-  border-color: #40E0D0 !important;
+  border-color: var(--secondary-color) !important; 
 }
 
 .mat-mdc-form-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-gap:active {
-  background-color: #40E0D0 !important;
+  background-color: var(--secondary-color) !important; 
 }
 
 .mat-mdc-form-field.mat-mdc-form-field-appearance-outline.mat-mdc-form-field-invalid .mat-mdc-form-field-outline-side {
-  border-color: #DC3545 !important;
+  border-color: var(--error-color) !important;  
 }
 
 .mat-mdc-form-field.mat-mdc-form-field-appearance-outline.mat-mdc-form-field-invalid .mat-mdc-form-field-outline-gap {
-  background-color: #DC3545 !important;
+  background-color: var(--error-color) !important; 
 }
 
-
 .mat-mdc-form-field.mat-mdc-form-field-appearance-outline.mat-mdc-form-field-invalid .mat-mdc-form-field-outline-gap.focused {
-  background-color: #DC3545 !important;
+  background-color: var(--error-color) !important;  
 }
 
 .mat-mdc-form-field.mat-mdc-form-field-appearance-outline.mat-mdc-form-field-invalid .mat-mdc-form-field-outline-side:active {
-  border-color: #DC3545 !important;
+  border-color: var(--error-color) !important; 
 }
 
 .mat-mdc-form-field.mat-mdc-form-field-appearance-outline.mat-mdc-form-field-invalid .mat-mdc-form-field-outline-gap:active {
-  background-color: #DC3545 !important;
+  background-color: var(--error-color) !important; 
 }
 
 .mat-mdc-form-field.mat-mdc-form-field-appearance-outline.mat-mdc-form-field-invalid .mat-mdc-error {
-  color: #DC3545 !important;
+  color: var(--error-color) !important; 
 }
 
-/* שדות לא תקינים - מחלקה */
 .invalid-field .mat-mdc-form-field-outline-side {
-  border-color: #DC3545 !important;
+  border-color: var(--error-color) !important; 
 }
 
 .invalid-field .mat-mdc-form-field-outline-gap {
-  background-color: #DC3545 !important;
+  background-color: var(--error-color) !important; 
 }
 
 .invalid-field .mat-mdc-form-field-outline-side.focused {
-  border-color: #DC3545 !important;
+  border-color: var(--error-color) !important; 
 }
 
 .invalid-field .mat-mdc-form-field-outline-gap.focused {
-  background-color: #DC3545 !important;
+  background-color: var(--error-color) !important; 
 }
 
 .invalid-field .mat-mdc-form-field-outline-side:active {
-  border-color: #DC3545 !important;
+  border-color: var(--error-color) !important; 
 }
 
 .invalid-field .mat-mdc-form-field-outline-gap:active {
-  background-color: #DC3545 !important;
+  background-color: var(--error-color) !important; 
 }
 
 .invalid-field .mat-mdc-error {
-  color: #DC3545 !important;
+  color: var(--error-color) !important; 
 }
 
 mat-card-actions {
@@ -256,17 +234,17 @@ mat-card-actions {
 }
 
 .switch-mode-btn {
-  color: #3f51b5;
+  color: #3f51b5; 
 }
 
 .success-snackbar {
-  background-color: #4caf50;
-  color: white;
+  background-color: #4caf50; 
+  color: var(--primary-color); 
 }
 
 .error-snackbar {
-  background-color: #f44336;
-  color: white;
+  background-color: #f44336; 
+  color: var(--primary-color); 
 }
 
 @keyframes fadeIn {

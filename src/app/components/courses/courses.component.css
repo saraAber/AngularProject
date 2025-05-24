@@ -19,20 +19,15 @@
   }
 
   .loading {
-    display: flex;
-    justify-content: center;
-    padding: 50px;
-  } */
-
 /* src/app/components/courses/courses.component.css */
 .courses-container {
-  padding: 24px;
-  max-width: 1200px;
+  padding: var(--container-padding);
+  max-width: var(--max-width);
   margin: 0 auto;
 }
 
 .actions {
-  margin-bottom: 24px;
+  margin-bottom: var(--grid-gap);
   display: flex;
   justify-content: flex-end;
 }
@@ -41,13 +36,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 200px;
+  min-height: var(--loading-height);
 }
 
 .course-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
+  gap: var(--grid-gap);
   justify-content: center;
 }
 

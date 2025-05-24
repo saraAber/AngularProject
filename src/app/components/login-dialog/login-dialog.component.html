@@ -64,7 +64,7 @@
         
         <div class="submit-container">
           @if (loading$ | async) {
-            <mat-progress-spinner class="login-spinner" mode="indeterminate" diameter="24"></mat-progress-spinner>
+            <mat-progress-spinner class="login-spinner" mode="indeterminate" diameter="24" color="accent"></mat-progress-spinner>
           } @else {
             <button mat-raised-button color="primary" (click)="submit()" [disabled]="submitBtnDisabled" class="submit-btn">
               {{ isLogin ? 'כניסה' : 'הרשמה' }}

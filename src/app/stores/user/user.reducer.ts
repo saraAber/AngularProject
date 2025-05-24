@@ -36,7 +36,6 @@ import { state } from '@angular/animations';
      on(UserActions.deleteUserFailure, (state, { error }) => ({ ...state, loading: false, error })),
    
      on(UserActions.clearUsers, (state) => userAdapter.removeAll(state)),
-     //אני רוצה להגביר שבעת התנתקות משתמש ימחק הטוקן מהלוקל סטורייג
      on(UserActions.logoutUser, (state) => ({...initialState})),
      on(UserActions.enrollUserInCourseSuccess, (state, { userId, courseId }) => {
       return userAdapter.updateOne({
@@ -58,5 +57,4 @@ import { state } from '@angular/animations';
      }),
      on(UserActions.unenrollUserFromCourseFailure, (state, { error }) => ({ ...state, coursesError: error })),
      on(UserActions.clearUserError, (state) => ({ ...state, error: null })),
-    //  on(UserActions.putCoursesId,(state,{userId})=>({...state,}))
     );

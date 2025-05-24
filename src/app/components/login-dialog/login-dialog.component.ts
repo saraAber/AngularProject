@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // וודא שזה מיובא
 import { takeUntil } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -25,7 +25,7 @@ import { SocialAuthService, GoogleLoginProvider, SocialUser } from '@abacritt/an
   templateUrl: './login-dialog.component.html',
   styleUrls: ['./login-dialog.component.css'],
   animations: [
-    trigger('fade', [
+    trigger('fadeIn', [ // שיניתי את שם האנימציה מ-'fade' ל-'fadeIn' כדי להתאים ל-HTML
       transition(':enter', [
         style({ opacity: 0 }),
         animate('400ms ease-in', style({ opacity: 1 }))
@@ -41,7 +41,7 @@ import { SocialAuthService, GoogleLoginProvider, SocialUser } from '@abacritt/an
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatProgressSpinnerModule,
+    MatProgressSpinnerModule, // וודא שזה מופיע כאן
     AsyncPipe,
   ]
 })
@@ -69,7 +69,7 @@ export class LoginDialogComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.initForm();
-    
+
     // Listen for successful user login/registration
     this.store
       .select(UserSelectors.selectCurrentUser)
@@ -81,24 +81,24 @@ export class LoginDialogComponent implements OnInit, OnDestroy, AfterViewInit {
           this.successMessage = this.isLogin
             ? `ברוך הבא, ${this.userName}! התחברת בהצלחה`
             : `ברוך הבא ${this.userName}, נרשמת בהצלחה לאתר שלנו!`;
-          
+
           this.snackBar.open(this.successMessage, 'סגור', {
             duration: 7000,
             direction: 'rtl',
             panelClass: ['success-snackbar']
           });
-          
+
           setTimeout(() => {
             this.dialogRef.close();
           }, 1500);
-          
+
           this.cdr.detectChanges();
         }
       });
 
     // Listen for errors
     this.error$ = this.store.select(UserSelectors.selectUserError);
-    this.loading$ = this.store.select(UserSelectors.selectUserLoading);
+    this.loading$ = this.store.select(UserSelectors.selectUserLoading); // כאן מוגדר ה-loading$
     this.error$.pipe(takeUntil(this.destroy$)).subscribe((error) => {
       if (error) {
         this.snackBar.open(error, 'סגור', {
@@ -111,6 +111,9 @@ export class LoginDialogComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    // קוד זה מנסה לשנות את כיווניות השדות לאחר ה-render.
+    // ייתכן שחלק מזה כבר מטופל על ידי CSS גלובלי או הגדרות Angular Material.
+    // אם יש בעיות כיווניות, כדאי לבדוק את סדר העדיפויות של ה-CSS.
     const formFields = document.querySelectorAll('.mat-mdc-form-field');
     formFields.forEach(field => {
       field.setAttribute('dir', 'rtl');
@@ -140,7 +143,7 @@ export class LoginDialogComponent implements OnInit, OnDestroy, AfterViewInit {
     this.authForm.valueChanges.subscribe(() => {
       const emailControl = this.authForm.get('email');
       const passwordControl = this.authForm.get('password');
-      
+
       if (emailControl?.valid && passwordControl?.valid) {
         this.submitBtnDisabled = false;
       } else {
@@ -172,8 +175,8 @@ export class LoginDialogComponent implements OnInit, OnDestroy, AfterViewInit {
       });
       return;
     }
-    
-    this.store.dispatch(UserActions.clearUserError()); 
+
+    this.store.dispatch(UserActions.clearUserError());
 
     const name = this.authForm.get('name')?.value ?? '';
     const email = this.authForm.get('email')?.value;

@@ -51,7 +51,7 @@
 
 /* Header styles */
 .app-header {
-  background-color: #40E0D0;
+  background-color: var(--background-color);
   box-shadow: var(--shadow);
   padding: 1rem;
   position: fixed;
@@ -61,7 +61,7 @@
 
 /* Footer styles */
 .app-footer {
-  background-color: #40E0D0;
+  background-color: var(--background-color);
   padding: 1rem;
   text-align: center;
   box-shadow: var(--shadow);
